@@ -55,11 +55,15 @@ const Products = () => {
   query.push(`page=${page}`);
   const queryString = query.length > 0 ? `?${query.join("&")}` : "";
 
-  const { products, totalPages, loading, error } = useProducts(
+  const { data, loading, error } = useProducts(
     `/api/products${queryString}`
   );
 
-  console.log(products);
+  const products = data.products || [];
+  const totalPages = data.totalPages;
+
+
+  // console.log(products);
 
   const clearFilter = () => {
     setCategory("all");
@@ -131,7 +135,7 @@ const Products = () => {
                   </div>
 
                   <div className="p-4 flex flex-col flex-grow">
-                    <Link href={`/product/${product._id}`} className="mb-2">
+                    <Link href={`/products/product/${product._id}`} className="mb-2">
                       <h2 className="text-xl font-semibold mb-2">
                         {product.name}
                       </h2>

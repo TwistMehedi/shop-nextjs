@@ -5,9 +5,9 @@ import axios from "axios";
 
 export const useProducts = (url) => {
 
-  const [products, setProducts] = useState([]);
+  const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
- 
+//  console.log(data);
   useEffect(() => {
 
     const fetchProducts = async () => {
@@ -15,7 +15,7 @@ export const useProducts = (url) => {
         setLoading(true);
         const response = await axios.get(url);
        
-          setProducts(response.data.products || []);
+          setData(response.data.data || []);
    
       } catch (err) {
          setLoading(false);
@@ -26,5 +26,5 @@ export const useProducts = (url) => {
     fetchProducts();
   }, [url]);
 
-  return { products, loading };
+  return { data, loading };
 };

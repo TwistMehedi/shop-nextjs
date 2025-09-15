@@ -13,45 +13,45 @@ export async function GET(req) {
     const priceMax = searchParams.get("priceMax");
     const search = searchParams.get("name");
 
+    const page = parseInt(searchParams.get("page")) || 1;
+    const limit = 10; // per page
 
-     const page = parseInt(searchParams.get("page")) || 1;
-     const limit = 10; // per page
-
-     const filter = {};
+    const filter = {};
 
     if (category && category !== "all") {
       filter.category = category;
-    };
+    }
 
-     if (priceMin || priceMax) {
+    if (priceMin || priceMax) {
       filter.price = {};
       if (priceMin) filter.price.$gte = Number(priceMin);
       if (priceMax) filter.price.$lte = Number(priceMax);
-    };
+    }
 
     if (search && search.trim() !== "") {
       filter.$or = [
         { name: { $regex: search.trim(), $options: "i" } },
         { descrption: { $regex: search.trim(), $options: "i" } },
       ];
-    };
+    }
 
-     const totalProducts = await productModel.countDocuments(filter);
+    const totalProducts = await productModel.countDocuments(filter);
 
-      const products = await productModel.find(filter)
+    const products = await productModel
+      .find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
 
-
-      return NextResponse.json({
+    return NextResponse.json({
       success: true,
-      products,
-      totalProducts,
-      totalPages: Math.ceil(totalProducts / limit),
-      currentPage: page,
+      data: {
+        products,
+        totalProducts,
+        totalPages: Math.ceil(totalProducts / limit),
+        currentPage: page,
+      },
     });
-
   } catch (error) {
     return NextResponse.json(
       {
