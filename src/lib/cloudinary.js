@@ -20,3 +20,5 @@ export const uploadFile = async (file) => {
     stream.end(buffer);
   });
 };
+
+export default cloudinary;

@@ -27,19 +27,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    // company: {
-    //   companyName: { type: String, default: ""},
-    //   address: { type: String, default: "" },
-    //   phone: { type: Number, default: "", min: 11, max: 11 },
-    //   website: { type: String, default: "" },
-    //   bio: { type: String, default: "", max: 250 },
-    //   licenseNumber: { type: Number, default: "", min: 8, max: 8 },
-    //   taxId: { type: Number, default: "", min: 9, max: 9 },
-    //   logo: {
-    //     secure_url: { type: String, default: "logo.png" },
-    //     public_id: { type: String, default: "logo.png" },
-    //   },
-    // },
     image: {
       secure_url: { type: String, default: "profile.png" },
       public_id: { type: String, default: "profile.png" },

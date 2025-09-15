@@ -38,8 +38,6 @@ export default function LoginPage() {
     (state) => state.user
   );
 
-  console.log(user);
-
   const loginHandler = async (values) => {
     dispatch(loginStart());
     try {
@@ -62,12 +60,7 @@ export default function LoginPage() {
 
   return (
     <>
-      {isAuthenticated ? (
-        <div className="max-w-xl mx-auto p-6 bg-green-100 shadow-lg rounded-2xl text-center">
-          <h2 className="text-xl font-semibold">Welcome, {user?.name} 🎉</h2>
-          <p>You are already logged in.</p>
-        </div>
-      ) : (
+      { (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
